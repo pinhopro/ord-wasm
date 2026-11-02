@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { fileURLToPath } from 'node:url';
 
 const artifact_directory = new URL('../artifacts/', import.meta.url);
 const wasm_bytes = await readFile(new URL('ord_core_poc.wasm', artifact_directory));
@@ -60,7 +59,7 @@ assert.equal(memory_after, memory_before);
 
 const result = {
 	runtime: process.version,
-	wasm_path: fileURLToPath(new URL('ord_core_poc.wasm', artifact_directory)),
+	wasm_path: 'artifacts/ord_core_poc.wasm',
 	wasm_bytes: wasm_bytes.byteLength,
 	sha256: createHash('sha256').update(wasm_bytes).digest('hex'),
 	vector_count: fixture_document.vectors.length,
